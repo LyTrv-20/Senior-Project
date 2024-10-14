@@ -4,7 +4,7 @@ plugins {
 
 android {
     namespace = "com.lytran.seniorproject"
-    compileSdk = 34
+    compileSdk = 3
 
     defaultConfig {
         applicationId = "com.lytran.seniorproject"

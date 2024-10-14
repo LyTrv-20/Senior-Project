@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Senior Project</string>
+    <string name="hello_world"> Hello world! Welcome to my app</string>
+    <string name="page2"> Settings</string>
 </resources>
