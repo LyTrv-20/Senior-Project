@@ -6,6 +6,8 @@
     <user-permission android:name="android.permission.CHANGE_NETWORK_STATE"/>
     <user-permission android:name="android.permission.INTERNET"/>
     <user-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <user-permission android:name="android.Manifest.permission.ACCESS_COARSE_LOCATION"/>
+    <user-permission android:name="android.Manifest.permission.ACCESS_FINE_LOCATION"/>
 
     <application
         android:allowBackup="true"
@@ -17,9 +19,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SeniorProject"
         tools:targetApi="31">
-        <activity
-            android:name=".MainActivity2"
-            android:exported="false" />
         <activity
             android:name=".MainActivity"
             android:exported="true">
