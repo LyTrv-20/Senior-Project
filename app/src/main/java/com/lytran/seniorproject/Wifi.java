@@ -3,6 +3,7 @@ package com.lytran.seniorproject;
 public interface Wifi {
     default void scanWifi(){}
     default void setModel(){}
+    default void getScan(){}
     record wifiModel(String name, int status, Data data){
         public String getAnalysis(){
             //TODO: change to rating output

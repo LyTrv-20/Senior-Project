@@ -1,5 +1,7 @@
 package com.lytran.seniorproject;
 
+import static androidx.core.content.ContextCompat.getSystemService;
+
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -37,13 +39,11 @@ public class MainActivity extends AppCompatActivity {
     CurrNetwork activeNet;
     ConnectivityManager netManager;
     NetworkRequest netfilter;
-    ArrayList<NetModel> local;
+    ArrayList<Wifi.wifiModel> local;
 
     WifiManager wifiManager;
     BroadcastReceiver wifiScanReceiver;
 
-
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
@@ -54,8 +54,12 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
-        setCurrViews();
+//        setCurrViews();
         localViewAdapter adapter = new localViewAdapter(this, local);
+        wifiManager = (WifiManager) getSystemService(, WifiManager.class);
+
+        activeNet = new CurrNetwork(this, wifiManager);
+        activeNet.scanWifi();
 
 //        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 //            // TODO: Consider calling
@@ -70,64 +74,64 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void buildConnectionclass() {
-        activeNet = CurrNetwork.getInstance(this);
-        netfilter = new NetworkRequest.Builder()
-                .addTransportType(NetworkCapabilities.TRANSPORT_WIFI)
-                .build();
-        ConnectivityManager.NetworkCallback callback = new ConnectivityManager.NetworkCallback() {
-            @Override
-            public void onAvailable(@NonNull Network network) {
-                super.onAvailable(network);
-            }
-
-            @Override
-            public void onLost(@NonNull Network network) {
-                super.onLost(network);
-            }
-
-            @Override
-            public void onCapabilitiesChanged(@NonNull Network network, @NonNull NetworkCapabilities networkCapabilities) {
-                super.onCapabilitiesChanged(network, networkCapabilities);
-                final boolean unmetered = networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_NOT_METERED);
-            }
-        };
-        netManager = (ConnectivityManager) getSystemService(ConnectivityManager.class);
-    }
-
-    private void buildWifiClass() {
-        wifiManager = (WifiManager) getSystemService(Context.WIFI_SERVICE);
-        wifiScanReceiver = new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                boolean success = intent.getBooleanExtra(
-                        WifiManager.EXTRA_RESULTS_UPDATED, false
-                );
-
-                if (success) {
-                    scanSuccess();
-                } else {
-                    scanFailure();
-                }
-            }
-        };
-
-        IntentFilter intentFilter = new IntentFilter();
-        intentFilter.addAction(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION);
-        registerReceiver(wifiScanReceiver, intentFilter);
-
-        Executor executor = ContextCompat.getMainExecutor(this);
-        WifiManager.ScanResultsCallback callback = new WifiManager.ScanResultsCallback() {
-            @Override
-            public void onScanResultsAvailable() {
-                //TODO: handle scan result
-                scanSuccess();
-            }
-        };
-
-        wifiManager.registerScanResultsCallback(executor,callback);
-        wifiManager.startScan();
-    }
+//    private void buildConnectionclass() {
+////        activeNet = CurrNetwork.getInstance(this);
+//        netfilter = new NetworkRequest.Builder()
+//                .addTransportType(NetworkCapabilities.TRANSPORT_WIFI)
+//                .build();
+//        ConnectivityManager.NetworkCallback callback = new ConnectivityManager.NetworkCallback() {
+//            @Override
+//            public void onAvailable(@NonNull Network network) {
+//                super.onAvailable(network);
+//            }
+//
+//            @Override
+//            public void onLost(@NonNull Network network) {
+//                super.onLost(network);
+//            }
+//
+//            @Override
+//            public void onCapabilitiesChanged(@NonNull Network network, @NonNull NetworkCapabilities networkCapabilities) {
+//                super.onCapabilitiesChanged(network, networkCapabilities);
+//                final boolean unmetered = networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_NOT_METERED);
+//            }
+//        };
+//        netManager = (ConnectivityManager) getSystemService(this, ConnectivityManager.class);
+//    }
+//
+//    private void buildWifiClass() {
+//        wifiManager = (WifiManager) getSystemService(this, Context.WIFI_SERVICE);
+//        wifiScanReceiver = new BroadcastReceiver() {
+//            @Override
+//            public void onReceive(Context context, Intent intent) {
+//                boolean success = intent.getBooleanExtra(
+//                        WifiManager.EXTRA_RESULTS_UPDATED, false
+//                );
+//
+//                if (success) {
+//                    scanSuccess();
+//                } else {
+//                    scanFailure();
+//                }
+//            }
+//        };
+//
+//        IntentFilter intentFilter = new IntentFilter();
+//        intentFilter.addAction(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION);
+//        registerReceiver(wifiScanReceiver, intentFilter);
+//
+//        Executor executor = ContextCompat.getMainExecutor(this);
+//        WifiManager.ScanResultsCallback callback = new WifiManager.ScanResultsCallback() {
+//            @Override
+//            public void onScanResultsAvailable() {
+//                //TODO: handle scan result
+//                scanSuccess();
+//            }
+//        };
+//
+//        wifiManager.registerScanResultsCallback(executor,callback);
+//        wifiManager.startScan();
+//    }
 
     private void scanSuccess() {
         checkPermission();

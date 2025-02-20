@@ -7,7 +7,7 @@
     <user-permission android:name="android.permission.INTERNET"/>
     <user-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <user-permission android:name="android.Manifest.permission.ACCESS_COARSE_LOCATION"/>
-    <user-permission android:name="android.Manifest.permission.ACCESS_FINE_LOCATION"/>
+    <user-permission android:name="android.Manifest.permission.NETWORK_SETTINGS"/>
 
     <application
         android:allowBackup="true"

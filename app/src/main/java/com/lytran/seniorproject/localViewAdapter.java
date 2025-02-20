@@ -13,9 +13,9 @@ import java.util.ArrayList;
 
 public class localViewAdapter extends RecyclerView.Adapter<localViewAdapter.MyViewHolder>{
     Context context;
-    ArrayList<NetModel> localList;
+    ArrayList<Wifi.wifiModel> localList;
 
-    public localViewAdapter(Context context, ArrayList<NetModel> localList){
+    public localViewAdapter(Context context, ArrayList<Wifi.wifiModel> localList){
         this.context = context;
         this.localList = localList;
     }
@@ -33,8 +33,8 @@ public class localViewAdapter extends RecyclerView.Adapter<localViewAdapter.MyVi
     public void onBindViewHolder(@NonNull localViewAdapter.MyViewHolder holder, int position) {
         //add values to views
 
-        holder.name.setText(localList.get(position).name);
-        holder.infos.setText(LocalNetwork.getInfos(localList.get(position)));
+        holder.name.setText(localList.get(position).name());
+        holder.infos.setText(localList.get(position).getAnalysis());
         //TODO: set color of status light according to status
     }
 

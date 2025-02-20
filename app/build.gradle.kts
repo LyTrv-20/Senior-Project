@@ -4,7 +4,7 @@ plugins {
 
 android {
     namespace = "com.lytran.seniorproject"
-    compileSdk = 3
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.lytran.seniorproject"
@@ -29,6 +29,7 @@ android {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
+    buildToolsVersion = "34.0.0"
 }
 
 dependencies {
