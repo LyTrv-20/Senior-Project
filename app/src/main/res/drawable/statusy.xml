@@ -4,7 +4,7 @@
     android:viewportWidth="21"
     android:viewportHeight="21">
     <path
-        android:fillColor="#FFFFFF"
+        android:fillColor="@color/yellow"
         android:pathData="M10.5 3A7.5 7.5 0 1 0 10.5 18 7.5 7.5 0 1 0 10.5 3z"/>
     <path
         android:strokeColor="#80747775"
